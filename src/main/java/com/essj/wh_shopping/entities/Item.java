@@ -1,6 +1,7 @@
 package com.essj.wh_shopping.entities;
 
 
+import com.essj.wh_shopping.DTO.ItemDTO;
 import jakarta.persistence.Embeddable;
 
 @Embeddable
@@ -23,5 +24,13 @@ public class Item {
 
     public void setPrice(float price) {
         this.price = price;
+    }
+
+
+    public static Item fromDTO(ItemDTO itemDTO){
+        Item item = new Item();
+        item.setProductIdentifier(itemDTO.getProductIdentifier());
+        item.setPrice(itemDTO.getPrice());
+        return item;
     }
 }

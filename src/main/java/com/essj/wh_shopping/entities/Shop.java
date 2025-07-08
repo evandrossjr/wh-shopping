@@ -1,10 +1,14 @@
 package com.essj.wh_shopping.entities;
 
+import com.essj.wh_shopping.DTO.ItemDTO;
+import com.essj.wh_shopping.DTO.ShopDTO;
 import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.web.WebProperties;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 @Entity
 public class Shop {
@@ -22,6 +26,16 @@ public class Shop {
     @CollectionTable(name = "item", joinColumns = @JoinColumn(name = "shop_id"))
     private List<Item> items;
 
+    public Shop() {
+    }
+
+    public Shop(Long id, String userIdentifier, float total, Date date, List<Item> items) {
+        this.id = id;
+        this.userIdentifier = userIdentifier;
+        this.total = total;
+        this.date = date;
+        this.items = items;
+    }
 
     public Long getId() {
         return id;
@@ -61,5 +75,14 @@ public class Shop {
 
     public void setItems(List<Item> items) {
         this.items = items;
+    }
+
+    public Shop fromDTO(ShopDTO shopDTO){
+        Shop shop = new Shop();
+        shop.setUserIdentifier(shopDTO.getUserIdentifier());
+        shop.setTotal(shopDTO.getTotal());
+        shop.setDate(shopDTO.getDate());
+        shop.setItems(shopDTO.getItems().stream().map(itemDTO -> Item.fromDTO(ItemDTO.toDTO(itemDTO))).collect(Collectors.toList()));
+        return shop;
     }
 }
