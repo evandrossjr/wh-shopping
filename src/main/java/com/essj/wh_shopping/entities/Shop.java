@@ -77,7 +77,7 @@ public class Shop {
         this.items = items;
     }
 
-    public Shop fromDTO(ShopDTO shopDTO){
+    public static Shop fromDTO(ShopDTO shopDTO){
         Shop shop = new Shop();
         shop.setUserIdentifier(shopDTO.getUserIdentifier());
         shop.setTotal(shopDTO.getTotal());
