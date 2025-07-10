@@ -8,9 +8,9 @@ import java.util.List;
 
 public interface ShopRepository extends JpaRepository<Shop, Long>{
 
-    public List<Shop> findByUserIndentifier(String userIdentifier);
+    public List<Shop> findByUserIdentifier(String userIdentifier);
 
     public List<Shop> findAllByTotalGreaterThan(Float total);
 
-    List<Shop> findAllByDateGreaterThanEquals(Date date);
+    List<Shop> findAllByDateGreaterThanEqual(Date date);
 }

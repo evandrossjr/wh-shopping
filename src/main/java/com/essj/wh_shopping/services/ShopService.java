@@ -24,12 +24,12 @@ public class ShopService {
     }
 
     public List<ShopDTO> getByUser(String userIdentifier){
-        List<Shop> shops=shopRepository.findByUserIndentifier(userIdentifier);
+        List<Shop> shops=shopRepository.findByUserIdentifier(userIdentifier);
         return shops.stream().map(ShopDTO::toDTO).collect(Collectors.toList());
     }
 
     public List<ShopDTO> getByDate(ShopDTO shopDTO){
-        List<Shop> shops=shopRepository.findAllByDateGreaterThanEquals(shopDTO.getDate());
+        List<Shop> shops=shopRepository.findAllByDateGreaterThanEqual(shopDTO.getDate());
         return shops.stream().map(ShopDTO::toDTO).collect(Collectors.toList());
     }
 
@@ -42,7 +42,9 @@ public class ShopService {
     }
 
     public ShopDTO save(ShopDTO shopDTO){
+
         shopDTO.setTotal(shopDTO.getItems().stream().map(x->x.getPrice()).reduce((float) 0, Float::sum));
+
 
         Shop shop = Shop.fromDTO(shopDTO);
         shop.setDate(new Date());

@@ -82,7 +82,14 @@ public class Shop {
         shop.setUserIdentifier(shopDTO.getUserIdentifier());
         shop.setTotal(shopDTO.getTotal());
         shop.setDate(shopDTO.getDate());
-        shop.setItems(shopDTO.getItems().stream().map(itemDTO -> Item.fromDTO(ItemDTO.toDTO(itemDTO))).collect(Collectors.toList()));
+        if (shopDTO.getItems() != null) {
+            shop.setItems(
+                    shopDTO.getItems()
+                            .stream()
+                            .map(itemDTO -> Item.fromDTO(itemDTO))
+                            .collect(Collectors.toList())
+            );
+        }
         return shop;
     }
 }

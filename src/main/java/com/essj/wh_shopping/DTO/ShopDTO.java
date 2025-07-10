@@ -11,19 +11,20 @@ import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collectors;
 
 public class ShopDTO {
 
-    @NotBlank
+    @NotBlank(message = "userIdentifier não deve estar em branco")
     private String userIdentifier;
     @NotNull
     private float total;
-    @NotNull
+
     private Date date;
     @NotNull
-    private List<Item> items;
+    private List<ItemDTO> items;
 
-    public ShopDTO(String userIdentifier, float total, Date date, List<Item> items) {
+    public ShopDTO(String userIdentifier, float total, Date date, List<ItemDTO> items) {
         this.userIdentifier = userIdentifier;
         this.total = total;
         this.date = date;
@@ -58,11 +59,11 @@ public class ShopDTO {
         this.date = date;
     }
 
-    public List<Item> getItems() {
+    public List<ItemDTO> getItems() {
         return items;
     }
 
-    public void setItems(List<Item> items) {
+    public void setItems(List<ItemDTO> items) {
         this.items = items;
     }
 
@@ -70,6 +71,17 @@ public class ShopDTO {
         ShopDTO shopDTO = new ShopDTO();
         shopDTO.setUserIdentifier(shop.getUserIdentifier());
         shopDTO.setTotal(shop.getTotal());
+
+        shopDTO.setDate(shop.getDate());
+
+        if (shop.getItems() != null) {
+            shopDTO.setItems(
+                    shop.getItems()
+                            .stream()
+                            .map(ItemDTO::toDTO)
+                            .collect(Collectors.toList())
+            );
+        }
         return shopDTO;
 
     }
