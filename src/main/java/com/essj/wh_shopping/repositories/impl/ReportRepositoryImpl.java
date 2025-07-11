@@ -1,12 +1,13 @@
 package com.essj.wh_shopping.repositories.impl;
 
-import com.essj.wh_shopping.DTO.ShoReportDTO;
+import com.essj.wh_shopping.DTO.ShopReportDTO;
 import com.essj.wh_shopping.entities.Shop;
 import com.essj.wh_shopping.repositories.ReportRepository;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
 
+import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
 
@@ -47,8 +48,24 @@ public class ReportRepositoryImpl implements ReportRepository {
     }
 
     @Override
-    public ShoReportDTO getReportByDate(Date dataInicio, Date dataFim) {
-        return null;
+    public ShopReportDTO getReportByDate(Date dataInicio, Date dataFim) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("SELECT count(sp.id), sum(sp.total),m avg(sp.total)");
+        sb.append("FROM shopping.shop sp ");
+        sb.append("WHERE sp.date >= :dataInicio ");
+        sb.append("AND sp.date <= :dataFim");
+
+        Query query = entityManager.createNativeQuery(sb.toString());
+        query.setParameter("dataInicio", dataInicio);
+        query.setParameter("dataFim", dataFim);
+
+        Object[] result = (Object[]) query.getSingleResult();
+        ShopReportDTO shopReportDTO= new ShopReportDTO();
+        shopReportDTO.setCount(((BigInteger) result[0]).intValue());
+        shopReportDTO.setTotal((Double) result[1]);
+        shopReportDTO.setMean((Double) result[2]);
+
+        return shopReportDTO;
     }
 
 }

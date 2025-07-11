@@ -1,18 +1,18 @@
 package com.essj.wh_shopping.DTO;
 
-public class ShoReportDTO {
+public class ShopReportDTO {
 
     private Integer count;
     private Double total;
     private Double mean;
 
-    public ShoReportDTO(Integer count, Double total, Double mean) {
+    public ShopReportDTO(Integer count, Double total, Double mean) {
         this.count = count;
         this.total = total;
         this.mean = mean;
     }
 
-    public ShoReportDTO() {
+    public ShopReportDTO() {
     }
 
     public Integer getCount() {
