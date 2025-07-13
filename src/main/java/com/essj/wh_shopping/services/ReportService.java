@@ -15,7 +15,7 @@ public class ReportService {
     @Autowired
     private ReportRepository reportRepository;
 
-    public List<ShopDTO> getShopsByFilter(Date dataInicio, Date dataFim, Float valorMinimo) {
+    public List<ShopDTO> getShopByFilter(Date dataInicio, Date dataFim, Float valorMinimo) {
 
         List<Shop> shops = reportRepository.getShopByFilters(dataInicio, dataFim, valorMinimo);
         return null;
