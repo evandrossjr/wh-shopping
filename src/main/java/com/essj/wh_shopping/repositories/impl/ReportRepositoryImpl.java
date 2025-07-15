@@ -50,7 +50,7 @@ public class ReportRepositoryImpl implements ReportRepository {
     @Override
     public ShopReportDTO getReportByDate(Date dataInicio, Date dataFim) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT count(sp.id), sum(sp.total),m avg(sp.total) ");
+        sb.append("SELECT count(sp.id), sum(sp.total), avg(sp.total) ");
         sb.append("FROM shopping.Shop sp ");
         sb.append("WHERE sp.date >= :dataInicio ");
         sb.append("AND sp.date <= :dataFim ");
@@ -61,7 +61,7 @@ public class ReportRepositoryImpl implements ReportRepository {
 
         Object[] result = (Object[]) query.getSingleResult();
         ShopReportDTO shopReportDTO= new ShopReportDTO();
-        shopReportDTO.setCount(((BigInteger) result[0]).intValue());
+        shopReportDTO.setCount(((Number) result[0]).intValue());
         shopReportDTO.setTotal((Double) result[1]);
         shopReportDTO.setMean((Double) result[2]);
 
