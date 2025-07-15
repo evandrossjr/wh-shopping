@@ -22,15 +22,15 @@ public class ReportRepositoryImpl implements ReportRepository {
 
         StringBuilder sb = new StringBuilder();
         sb.append("SELECT s ");
-        sb.append("FROM shop s ");
+        sb.append("FROM Shop s ");
         sb.append("WHERE s.date >= :dataInicio");
 
         if (dataFim != null){
-            sb.append("AND s.date <= :dataFim");
+            sb.append(" AND s.date <= :dataFim");
         }
 
         if (valorMinimo != null){
-            sb.append("AND s.total <= :valorMinimo");
+            sb.append(" AND s.total <= :valorMinimo");
         }
 
         Query query = entityManager.createQuery(sb.toString());
@@ -50,10 +50,10 @@ public class ReportRepositoryImpl implements ReportRepository {
     @Override
     public ShopReportDTO getReportByDate(Date dataInicio, Date dataFim) {
         StringBuilder sb = new StringBuilder();
-        sb.append("SELECT count(sp.id), sum(sp.total),m avg(sp.total)");
-        sb.append("FROM shopping.shop sp ");
+        sb.append("SELECT count(sp.id), sum(sp.total),m avg(sp.total) ");
+        sb.append("FROM shopping.Shop sp ");
         sb.append("WHERE sp.date >= :dataInicio ");
-        sb.append("AND sp.date <= :dataFim");
+        sb.append("AND sp.date <= :dataFim ");
 
         Query query = entityManager.createNativeQuery(sb.toString());
         query.setParameter("dataInicio", dataInicio);

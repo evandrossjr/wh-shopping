@@ -6,6 +6,7 @@ import com.essj.wh_shopping.DTO.ShopReportDTO;
 import com.essj.wh_shopping.entities.Shop;
 import com.essj.wh_shopping.repositories.ReportRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 public class ReportService {
 
     @Autowired
+    @Qualifier("reportRepositoryImpl")
     private ReportRepository reportRepository;
 
     public List<ShopDTO> getShopByFilter(Date dataInicio, Date dataFim, Float valorMinimo) {
